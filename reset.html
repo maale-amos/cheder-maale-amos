@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>איפוס מטמון - בית התלמוד</title>
+<style>
+  body { font-family: 'Heebo', Arial, sans-serif; max-width: 600px; margin: 80px auto; padding: 30px; text-align: center; }
+  h1 { color: #1e3a8a; }
+  .status { margin: 20px 0; padding: 15px; background: #f3f4f6; border-radius: 8px; font-size: 15px; text-align: right; white-space: pre-line; }
+  .ok { color: #16a34a; }
+  .err { color: #dc2626; }
+  button { background: #1e3a8a; color: #fff; border: 0; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; font-family: inherit }
+</style>
+</head>
+<body>
+<h1>🔄 איפוס מטמון בית התלמוד</h1>
+<div class="status" id="status">מתחיל...</div>
+<button id="back" style="display:none" onclick="location.href='./'">חזרה לאתר</button>
+
+<script>
+const status = document.getElementById('status');
+const log = (msg, cls) => {
+  const line = document.createElement('div');
+  if (cls) line.className = cls;
+  line.textContent = msg;
+  status.appendChild(line);
+};
+
+(async function reset() {
+  status.textContent = '';
+  log('1. מסיר Service Workers...');
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      log(`   נמצאו ${regs.length} workers`);
+      for (const r of regs) {
+        try { await r.unregister(); log('   ✓ הוסר: ' + (r.scope || 'unknown'), 'ok'); }
+        catch (e) { log('   ✗ ' + e.message, 'err'); }
+      }
+    } else {
+      log('   (לא נתמך בדפדפן)');
+    }
+  } catch (e) { log('שגיאה: ' + e.message, 'err'); }
+
+  log('2. מנקה Caches...');
+  try {
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      log(`   נמצאו ${keys.length} caches`);
+      for (const k of keys) {
+        await caches.delete(k);
+        log('   ✓ נמחק: ' + k, 'ok');
+      }
+    } else {
+      log('   (לא נתמך)');
+    }
+  } catch (e) { log('שגיאה: ' + e.message, 'err'); }
+
+  log('3. מנקה localStorage cache נתונים (משאיר session login)...');
+  try {
+    const keep = ['user', 'bht_jwt', 'cheder_bht_data'];  // keep login + main data
+    const toRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && !keep.includes(k) && (k.startsWith('bht_draft_') || k.startsWith('cache_') || k.startsWith('autosave_'))) {
+        toRemove.push(k);
+      }
+    }
+    toRemove.forEach(k => localStorage.removeItem(k));
+    log(`   ✓ נמחקו ${toRemove.length} פריטים`, 'ok');
+  } catch (e) { log('שגיאה: ' + e.message, 'err'); }
+
+  log('');
+  log('✓ הושלם בהצלחה!', 'ok');
+  log('מעביר לאתר בעוד 3 שניות...');
+  document.getElementById('back').style.display = 'inline-block';
+  setTimeout(() => location.href = './?fresh=' + Date.now() + '#home', 3000);
+})();
+</script>
+</body>
+</html>

@@ -65,6 +65,13 @@ function drawEvents(list) {
   el.innerHTML = list.map(e => {
     const sev = e['חומרה'] === 'גבוהה' ? 'severity-high' : e['חומרה'] === 'נמוכה' ? 'severity-low' : 'severity-mid';
     const date = e['תאריך'] ? formatGreg(e['תאריך']) : '';
+    let time = '';
+    try {
+      if (e['תאריך']) {
+        const d = new Date(e['תאריך']);
+        if (!isNaN(d.getTime())) time = d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+      }
+    } catch {}
     let hdate = e['תאריך_עברי'] || '';
     let parsha = e['פרשה'] || '';
     // Backfill from JS date if missing
@@ -91,7 +98,7 @@ function drawEvents(list) {
         <div><span class="cat-badge">${escHtml(e['קטגוריה']||'')}</span><strong class="mx-2">${escHtml(e['שם תלמיד']||'')}</strong>${followBadge}</div>
         <div class="d-flex align-items-center gap-2 flex-wrap">
           ${parshaBadge}${hdateBadge}
-          <small class="text-muted">${escHtml(date)}</small>
+          <small class="text-muted">${escHtml(date)}${time ? ' · ' + escHtml(time) : ''}</small>
           ${handleBtn}
           <button class="btn btn-sm btn-outline-primary" onclick="editEvent(${e['מזהה']||0})"><i class="bi bi-pencil"></i></button>
           <button class="btn btn-sm btn-outline-danger" onclick="deleteEvent(${e['מזהה']||0})"><i class="bi bi-trash"></i></button>
