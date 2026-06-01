@@ -387,7 +387,7 @@ async function viewStudent(id) {
     const clean = phone.replace(/\D/g,'');
     if (!clean) return '';
     const intl = clean.startsWith('0') ? '972' + clean.slice(1) : clean;
-    const msg = encodeURIComponent(`שלום, מבית התלמוד בנוגע ל${name.trim()}`);
+    const msg = encodeURIComponent(`שלום, מחיידר מעלה עמוס בנוגע ל${name.trim()}`);
     return `<a href="https://wa.me/${intl}?text=${msg}" target="_blank" class="btn btn-sm btn-success p-1 ms-1" title="WhatsApp ${parent}"><i class="bi bi-whatsapp"></i></a><a href="tel:${phone}" class="btn btn-sm btn-outline-primary p-1" title="חיוג ${parent}"><i class="bi bi-telephone"></i></a>`;
   };
   const eventsHtml = events.length ? events.map(e => {
@@ -1139,7 +1139,7 @@ async function emailParentSummary(id) {
       lines.push(`- ${dt} | ${e['קטגוריה']||''} (${e['חומרה']||'-'}): ${e['תיאור']||''}`);
     });
   }
-  lines.push(``, 'בברכה,', 'בית התלמוד · בית שמש');
+  lines.push(``, 'בברכה,', 'חיידר מעלה עמוס');
   const body = lines.join('\n');
   const mailto = `mailto:${motherEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailto;
@@ -1319,7 +1319,7 @@ td{padding:5pt;border:1px solid #e5e7eb;vertical-align:top}
   <div>
     <h1>${escHtml(fullName)}</h1>
     <p class="subtitle">כיתה ${escHtml(s['מחזור']||'-')} · גיל ${escHtml(s['גיל']||'-')} · ת.ז ${escHtml(s['מספר זהות']||'-')}</p>
-    <p class="subtitle">בית התלמוד · בית שמש · ${escHtml(today)}</p>
+    <p class="subtitle">חיידר מעלה עמוס · ${escHtml(today)}</p>
   </div>
 </div>
 
@@ -1371,7 +1371,7 @@ ${meetings.length ? `<h2>אסיפות הורים</h2>${meetings.map(m => `<div c
 
 ${att.length ? `<h2>נוכחות</h2><table><tr><th>נוכחויות</th><td style="color:#16a34a"><strong>${attPresent}</strong></td><th>חיסור</th><td style="color:#f59e0b">${attAbsent}</td><th>איחורים</th><td style="color:#0891b2">${attLate}</td><th>אחוז נוכחות</th><td><strong>${att.length ? Math.round(attPresent/att.length*100) : 0}%</strong></td></tr></table>${att.slice(0, 30).length ? `<h3>30 הרישומים האחרונים</h3><table><tr><th>תאריך</th><th>סטטוס</th></tr>${att.slice(0, 30).map(a => `<tr><td>${escHtml(formatDateBoth(a['תאריך'])||'')}</td><td>${escHtml(a['סטטוס']||'')}</td></tr>`).join('')}</table>` : ''}` : ''}
 
-<p style="margin-top:20pt;color:#6b7280;font-size:9pt;border-top:1px solid #e5e7eb;padding-top:8pt">דוח מלא · בית התלמוד · בית שמש · ${escHtml(today)}</p>
+<p style="margin-top:20pt;color:#6b7280;font-size:9pt;border-top:1px solid #e5e7eb;padding-top:8pt">דוח מלא · חיידר מעלה עמוס · ${escHtml(today)}</p>
 <script>
 const _doPrint = () => window.print();
 if (document.fonts && document.fonts.ready) {

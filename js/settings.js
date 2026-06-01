@@ -64,7 +64,7 @@ async function renderSettings() {
     <div class="card p-3">
       <h5><i class="bi bi-info-circle"></i> אודות המערכת</h5>
       <ul class="mb-2 small">
-        <li>בית התלמוד · גרסה 1.1 · תשפ"ו</li>
+        <li>חיידר מעלה עמוס · גרסה 1.1 · תשפ"ו</li>
         <li>Backend: Google Apps Script + Google Sheets (סנכרון אוטומטי כל 60 שניות)</li>
         <li>אחסון מקומי localStorage כ-cache</li>
         <li>תאריך עברי ופרשה דרך @hebcal/core</li>
@@ -889,7 +889,7 @@ td{padding:6px 8px;border:1px solid #e5e7eb}
 @media print{.print-btn{display:none}}
 </style></head><body>
 <button class="print-btn" onclick="window.print()" style="background:#0066cc;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;margin-bottom:20px">🖨 הדפס</button>
-<h1>דוח בית התלמוד - ${escHtml(today)}</h1>
+<h1>דוח חיידר מעלה עמוס - ${escHtml(today)}</h1>
 <p>תלמידים: ${_filteredStudents.length} · אירועים: ${_filteredEvents.length}</p>
 ${_filteredStudents.length ? `<h2>תלמידים</h2><table><tr><th>שם</th><th>גיל</th><th>כיתה</th><th>טלפון</th></tr>${_filteredStudents.map(s=>`<tr><td>${escHtml((s['שם פרטי']||'') + ' ' + (s['שם משפחה']||''))}</td><td>${escHtml(s['גיל']||'')}</td><td>${escHtml(s['מחזור']||'')}</td><td>${escHtml(s['טלפון אם']||'')}</td></tr>`).join('')}</table>` : ''}
 ${_filteredEvents.length ? `<h2>אירועי התנהגות</h2>${_filteredEvents.map(e=>{const c=e['חומרה']==='גבוהה'?'high':e['חומרה']==='נמוכה'?'low':'mid';const rep=e['דווח_עי']?` · דווח ע"י ${escHtml(e['דווח_עי'])}`:'';return `<div class="event ${c}"><strong>${escHtml(e['שם תלמיד']||'')}</strong> · ${escHtml(e['קטגוריה']||'')} · ${escHtml(new Date(e['תאריך']).toLocaleString('he-IL'))}${rep}<br>${escHtml(e['תיאור']||'')}</div>`}).join('')}` : ''}
@@ -918,7 +918,7 @@ function generateReport(type) {
     title = 'מעקב התנהגות';
     content = renderBehaviorReport(data.behavior, data.students);
   } else {
-    title = 'דוח מלא - בית התלמוד';
+    title = 'דוח מלא - חיידר מעלה עמוס';
     content = renderStudentsReport(data.students) + '<div style="page-break-after:always"></div>' + renderBehaviorReport(data.behavior, data.students);
   }
 
@@ -950,7 +950,7 @@ tr:nth-child(even) td{background:#fafafa}
 <button class="print-btn" onclick="window.print()">🖨 הדפס/שמור PDF</button>
 <div class="header">
   <h1>${escHtml(title)}</h1>
-  <div class="subtitle">בית התלמוד · הופק ב-${escHtml(today)} בשעה ${escHtml(time)}</div>
+  <div class="subtitle">חיידר מעלה עמוס · הופק ב-${escHtml(today)} בשעה ${escHtml(time)}</div>
 </div>
 ${content}
 <script>

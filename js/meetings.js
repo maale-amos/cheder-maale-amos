@@ -225,7 +225,7 @@ async function meetEmailParents(id) {
     `שלום,\n\nמצורף סיכום ההכנה לאסיפת הורים — ${fullName}.\n` +
     (m['רב'] ? `נכתב ע"י: ${m['רב']}\n` : '') +
     (m['תאריך'] ? `תאריך: ${formatGreg(m['תאריך'])}\n` : '') +
-    `\n${summary}\n\nבברכה,\nבית התלמוד · בית שמש`
+    `\n${summary}\n\nבברכה,\nחיידר מעלה עמוס`
   );
   window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`, '_blank');
   notify('Gmail נפתח', 'success');

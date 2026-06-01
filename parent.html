@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>פורטל הורים — בית התלמוד</title>
+<title>פורטל הורים — חיידר מעלה עמוס</title>
 <link rel="icon" type="image/png" href="img/logo.png">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -16,7 +16,7 @@
   <div class="container">
     <span class="navbar-brand">
       <img src="img/logo.png" alt="לוגו" class="brand-logo">
-      <span class="brand-text">בית התלמוד · פורטל הורים</span>
+      <span class="brand-text">חיידר מעלה עמוס · פורטל הורים</span>
     </span>
   </div>
 </nav>
@@ -47,7 +47,7 @@ async function init() {
   const token = params.get('t');
   const mid = params.get('m');  // optional: focus a specific meeting
   if (!sid || !token) {
-    document.getElementById('content').innerHTML = '<div class="alert alert-warning">קישור לא תקין. פנה למזכירות בית התלמוד.</div>';
+    document.getElementById('content').innerHTML = '<div class="alert alert-warning">קישור לא תקין. פנה למזכירות חיידר מעלה עמוס.</div>';
     return;
   }
   const expectedToken = await computeToken(sid);
@@ -155,7 +155,7 @@ async function init() {
     html += '</table></div>';
   }
 
-  html += `<p class="text-center text-muted small mt-4">לפניות — מזכירות בית התלמוד · 6742853@gmail.com</p>`;
+  html += `<p class="text-center text-muted small mt-4">לפניות — מזכירות חיידר מעלה עמוס · e0548451402@gmail.com</p>`;
   document.getElementById('content').innerHTML = html;
 }
 

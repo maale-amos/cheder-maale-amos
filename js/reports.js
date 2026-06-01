@@ -93,7 +93,7 @@ td{padding:5pt;border:1px solid #e5e7eb}
 </style></head><body>
 <button class="no-print" onclick="window.print()" style="background:#0066cc;color:#fff;border:none;padding:10pt 20pt;border-radius:6px;cursor:pointer;font-size:14pt">🖨 הדפס / שמור כ‑PDF</button>
 <h1>${escHtml(title)}</h1>
-<p class="subtitle">בית התלמוד · בית שמש · ${formatDateBoth(new Date())}</p>`;
+<p class="subtitle">חיידר מעלה עמוס · ${formatDateBoth(new Date())}</p>`;
 }
 
 function reportFooter() {
@@ -704,7 +704,7 @@ async function genParentPDF(sendEmail) {
     html += `<table><tr><th>נוכחויות</th><td style="color:#16a34a"><strong>${attPresent}</strong></td><th>חיסור</th><td style="color:#f59e0b">${attAbsent}</td><th>איחורים</th><td style="color:#0891b2">${attLate}</td><th>אחוז נוכחות</th><td><strong>${att.length ? Math.round(attPresent/att.length*100) : 0}%</strong></td></tr></table>`;
   }
 
-  html += `<p style="margin-top:30pt;color:#6b7280;font-size:9pt">בברכה,<br>בית התלמוד · בית שמש · ${formatDateBoth(new Date())}</p>`;
+  html += `<p style="margin-top:30pt;color:#6b7280;font-size:9pt">בברכה,<br>חיידר מעלה עמוס · ${formatDateBoth(new Date())}</p>`;
   html += reportFooter();
   hideModal('rp-modal');
   if (sendEmail) {
@@ -731,7 +731,7 @@ async function sendParentReportPDF(html, studentName, email) {
     if (!j.ok) throw new Error(j.error || 'PDF generation failed');
     // Step 2: Open Gmail compose with PDF link
     const subject = encodeURIComponent(`דוח התקדמות — ${studentName}`);
-    const body = encodeURIComponent(`שלום,\n\nמצורף דוח התקדמות של ${studentName}.\nקישור לדוח: ${j.url}\n\nבברכה,\nבית התלמוד · בית שמש`);
+    const body = encodeURIComponent(`שלום,\n\nמצורף דוח התקדמות של ${studentName}.\nקישור לדוח: ${j.url}\n\nבברכה,\nחיידר מעלה עמוס`);
     window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${subject}&body=${body}`, '_blank');
     notify('PDF נוצר ונפתח Gmail', 'success');
   } catch (e) {
